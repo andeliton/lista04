@@ -1,0 +1,88 @@
+---
+title: "Lista 04 - Apresentando slides por um repositório no GitHub"
+author: "Andéliton Soares"
+date: "04/12/2020"
+output: ioslides_presentation
+align: "center"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+
+```
+
+```{r, echo=FALSE,include=FALSE}
+
+
+load("lista04.RData")
+library(tidyverse)
+
+AC<- AC$total %>% dplyr::select(-3,-5,-6,-8)
+
+a<-theta %>% filter(alpha>0.0125) %>% ggplot(aes(x=alpha)) +
+  geom_density()+
+  geom_density(color="darkblue", fill="lightblue")+
+labs(title="",x="%",y="")
+
+b<-theta %>%  filter(beta>0.02) %>% ggplot(aes(x=beta)) +
+  geom_density()+
+  geom_density(color="darkgreen", fill="lightgreen")+
+  labs(title="",x="%",y="")
+
+```
+
+## Desempenho eleitoral dos Deputados Federais 
+
+O indice tenta listar o bom desempenho eleitoral dos candidatos com base na quantidade de recursos gastos por estado, incumbência e tamanho do distrito medido em número de cadeiras totais pela quantidade de candidatos.
+
+
+## A fundamentação para o índice
+
+As razões deste indice se encontram no debate sobre desempenho eleitoral no Brasil. Entende-se a forte correlação dos gastos de campanha e da incumbência sobre as chances de eleição. 
+
+## Magnitude do Distrito
+
+A magnitude do distrito, como mostrado por Meirelles (2019), altera a probabilidade do candidato concorrer no próximo pleito. Demonstrando que quanto maior o Estado, menor a chance de um candidato tentar a reeleição. 
+
+
+## Elaboração do indice
+
+Foram usados os dados das eleições de 2018
+
+ $\alpha$= percentual de gastos no estado 
+ $\beta$= percentual de votos na última eleição 
+ $\gamma$= número de cadeiras no estado 
+ 
+ $\theta$ = $($$\alpha$ $\times$ $\beta$$)$$\div$$\gamma$ 
+
+##  alpha de Cronbach
+
+O  alpha de Cronbach foi calculado com a ajuda do pacote "psych" no software R
+
+   
+
+```{r include=TRUE,results ='asis',echo=FALSE}
+library(knitr)
+kable(AC,caption = "Reliability analysis")       
+  
+```
+
+
+
+
+## distribuições - % de gasto no estado
+
+```{r include=TRUE,results ='asis',echo=FALSE,fig.cap=TRUE}
+       
+    
+  a
+```
+
+## distribuições - % de votos no estado
+
+```{r include=TRUE,results ='asis',echo=FALSE,fig.cap=TRUE}
+       
+    
+  b
+```
